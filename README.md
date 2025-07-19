@@ -80,38 +80,6 @@ npm run start:prod
 - `GET /dashboard/tasks-over-time` - Get tasks created over time
 - `GET /dashboard/project-stats` - Get project completion statistics
 
-## Data Models
-
-### User
-- `id` (UUID, Primary Key)
-- `email` (String, Unique)
-- `password` (String, Hashed)
-- `firstName` (String)
-- `lastName` (String)
-- `role` (Enum: admin, user)
-- `isDeleted` (Boolean)
-- `createdAt` (Date)
-- `updatedAt` (Date)
-
-### Project
-- `id` (UUID, Primary Key)
-- `name` (String)
-- `description` (Text, Optional)
-- `isDeleted` (Boolean)
-- `createdAt` (Date)
-- `updatedAt` (Date)
-
-### Task
-- `id` (UUID, Primary Key)
-- `title` (String)
-- `description` (Text, Optional)
-- `status` (Enum: backlog, todo, in_progress, review, done)
-- `projectId` (UUID, Foreign Key)
-- `assignedToId` (UUID, Foreign Key, Optional)
-- `isDeleted` (Boolean)
-- `createdAt` (Date)
-- `updatedAt` (Date)
-
 ## Role-Based Access Control
 
 ### Admin
