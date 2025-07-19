@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } f
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { PaginationDto } from '../../common/dto/pagination.dto';
+import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard';
+import { PaginationDto } from '@/common/dto/pagination.dto';
 
 @Controller('projects')
 @UseGuards(JwtAuthGuard)

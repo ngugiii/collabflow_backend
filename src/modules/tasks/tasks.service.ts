@@ -4,9 +4,9 @@ import { Repository } from 'typeorm';
 import { Task } from './entities/task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { PaginationDto } from '../../common/dto/pagination.dto';
-import { UserRole } from '../../common/enums/user-role.enum';
-import { User } from '../users/entities/user.entity';
+import { PaginationDto } from '@/common/dto/pagination.dto';
+import { UserRole } from '@/common/enums/user-role.enum';
+import { User } from '@/modules/users/entities/user.entity';
 
 @Injectable()
 export class TasksService {

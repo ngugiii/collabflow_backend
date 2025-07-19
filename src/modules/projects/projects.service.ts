@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Project } from './entities/project.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { PaginationDto } from '../../common/dto/pagination.dto';
+import { PaginationDto } from '@/common/dto/pagination.dto';
 
 @Injectable()
 export class ProjectsService {

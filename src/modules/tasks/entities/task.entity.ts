@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { TaskStatus } from '../../common/enums/task-status.enum';
-import { Project } from '../../projects/entities/project.entity';
-import { User } from '../../users/entities/user.entity';
+import { TaskStatus } from '@/common/enums/task-status.enum';
+import { Project } from '@/modules/projects/entities/project.entity';
+import { User } from '@/modules/users/entities/user.entity';
 
 @Entity('tasks')
 export class Task {

@@ -1,7 +1,7 @@
 export enum TaskStatus {
-  BACKLOG = 'backlog',
-  TODO = 'todo',
-  IN_PROGRESS = 'in_progress',
-  REVIEW = 'review',
-  DONE = 'done',
-} 
+    BACKLOG = 'backlog',
+    TODO = 'todo',
+    IN_PROGRESS = 'in_progress',
+    REVIEW = 'review',
+    DONE = 'done',
+  }

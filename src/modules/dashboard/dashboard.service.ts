@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Task } from '../tasks/entities/task.entity';
-import { TaskStatus } from '../../common/enums/task-status.enum';
-import { UserRole } from '../../common/enums/user-role.enum';
-import { User } from '../users/entities/user.entity';
+import { Task } from '@/modules/tasks/entities/task.entity';
+import { TaskStatus } from '@/common/enums/task-status.enum';
+import { UserRole } from '@/common/enums/user-role.enum';
+import { User } from '@/modules/users/entities/user.entity';
 
 @Injectable()
 export class DashboardService {

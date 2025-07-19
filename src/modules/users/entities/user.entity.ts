@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { UserRole } from '../../common/enums/user-role.enum';
-import { Task } from '../../tasks/entities/task.entity';
+import { UserRole } from '@/common/enums/user-role.enum';
+import { Task } from '@/modules/tasks/entities/task.entity';
 
 @Entity('users')
 export class User {
