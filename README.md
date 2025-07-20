@@ -9,7 +9,6 @@ A collaboration tool for project management built with NestJS, TypeORM, and Post
 - **Task Management**: CRUD operations for tasks with status tracking
 - **Dashboard**: Analytics and statistics
 - **Authentication**: JWT-based authentication
-- **Soft Delete**: All entities support soft deletion
 
 ## Prerequisites
 
