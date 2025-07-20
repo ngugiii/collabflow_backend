@@ -64,29 +64,54 @@ export class DashboardService {
   }
 
   async getProjectStats(currentUser: User) {
-    let query = this.taskRepository.createQueryBuilder('task')
-      .leftJoin('task.project', 'project')
-      .select('project.name', 'projectName')
-      .addSelect('COUNT(*)', 'totalTasks')
-      .addSelect('SUM(CASE WHEN task.status = :doneStatus THEN 1 ELSE 0 END)', 'completedTasks')
-      .where('task.isDeleted = :isDeleted', { isDeleted: false })
-      .andWhere('project.isDeleted = :projectIsDeleted', { projectIsDeleted: false })
-      .setParameter('doneStatus', TaskStatus.DONE)
-      .groupBy('project.id, project.name')
-      .orderBy('totalTasks', 'DESC');
+    try {
+      // Get all tasks with their project information
+      let query = this.taskRepository.createQueryBuilder('task')
+        .leftJoinAndSelect('task.project', 'project')
+        .where('task.isDeleted = :isDeleted', { isDeleted: false })
+        .andWhere('project.isDeleted = :projectIsDeleted', { projectIsDeleted: false });
 
-    // If user is not admin, only count tasks assigned to them
-    if (currentUser.role !== UserRole.ADMIN) {
-      query = query.andWhere('task.assignedToId = :userId', { userId: currentUser.id });
+      // If user is not admin, only get tasks assigned to them
+      if (currentUser.role !== UserRole.ADMIN) {
+        query = query.andWhere('task.assignedToId = :userId', { userId: currentUser.id });
+      }
+
+      const tasks = await query.getMany();
+
+      // Group tasks by project
+      const projectMap = new Map();
+      
+      tasks.forEach(task => {
+        const projectName = task.project?.name || 'Unassigned';
+        
+        if (!projectMap.has(projectName)) {
+          projectMap.set(projectName, {
+            projectName,
+            totalTasks: 0,
+            completedTasks: 0,
+            completionRate: 0
+          });
+        }
+        
+        const projectStat = projectMap.get(projectName);
+        projectStat.totalTasks++;
+        
+        if (task.status === TaskStatus.DONE) {
+          projectStat.completedTasks++;
+        }
+      });
+
+      // Calculate completion rates and convert to array
+      const projectStats = Array.from(projectMap.values()).map(stat => ({
+        ...stat,
+        completionRate: stat.totalTasks > 0 ? (stat.completedTasks / stat.totalTasks) * 100 : 0
+      }));
+
+      // Sort by total tasks descending
+      return projectStats.sort((a, b) => b.totalTasks - a.totalTasks);
+    } catch (error) {
+      console.error('Error in getProjectStats:', error);
+      return [];
     }
-
-    const projectStats = await query.getRawMany();
-
-    return projectStats.map(stat => ({
-      projectName: stat.projectName,
-      totalTasks: parseInt(stat.totalTasks),
-      completedTasks: parseInt(stat.completedTasks),
-      completionRate: stat.totalTasks > 0 ? (parseInt(stat.completedTasks) / parseInt(stat.totalTasks)) * 100 : 0,
-    }));
   }
 } 

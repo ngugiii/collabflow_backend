@@ -21,6 +21,13 @@ export class Task {
   })
   status: TaskStatus;
 
+  @Column({ 
+    type: 'enum',
+    enum: ['LOW', 'MEDIUM', 'HIGH'],
+    default: 'MEDIUM'
+  })
+  priority: string;
+
   @Column({ default: false })
   isDeleted: boolean;
 
@@ -29,6 +36,9 @@ export class Task {
 
   @Column({ type: 'uuid', nullable: true })
   assignedToId: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  dueDate: Date;
 
   @CreateDateColumn()
   createdAt: Date;

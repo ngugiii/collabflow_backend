@@ -1,4 +1,5 @@
-import { IsString, IsOptional, MinLength, IsEnum, IsUUID } from 'class-validator';
+import { IsString, IsOptional, MinLength, IsEnum, IsUUID, IsDate } from 'class-validator';
+import { Transform } from 'class-transformer';
 import { TaskStatus } from '@/common/enums/task-status.enum';
 
 export class UpdateTaskDto {
@@ -16,6 +17,15 @@ export class UpdateTaskDto {
   status?: TaskStatus;
 
   @IsOptional()
+  @IsEnum(['LOW', 'MEDIUM', 'HIGH'])
+  priority?: string;
+
+  @IsOptional()
   @IsUUID()
   assignedToId?: string;
+
+  @IsOptional()
+  @IsDate()
+  @Transform(({ value }) => value ? new Date(value) : undefined)
+  dueDate?: Date;
 } 
